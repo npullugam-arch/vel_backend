@@ -20,7 +20,10 @@ public class CorsConfig {
                 "http://127.0.0.1:3000",
                 "http://localhost:5173",
                 "http://127.0.0.1:5173",
-                "http://192.168.1.36:5173"
+                "http://192.168.1.36:5173",
+
+                // ✅ ADD THIS (VERY IMPORTANT)
+                "https://vel-frontend.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
