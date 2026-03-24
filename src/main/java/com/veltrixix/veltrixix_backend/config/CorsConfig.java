@@ -23,7 +23,10 @@ public class CorsConfig {
                 "http://192.168.1.36:5173",
 
                 // ✅ ADD THIS (VERY IMPORTANT)
-                "https://vel-frontend.vercel.app"
+                "https://vel-frontend.vercel.app",
+                "https://vel-frontend-gssdqdhkl-npullugam-archs-projects.vercel.app/",
+                "https://vel-frontend-git-master-npullugam-archs-projects.vercel.app/"
+
         ));
 
         configuration.setAllowedMethods(List.of(
