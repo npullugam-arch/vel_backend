@@ -15,18 +15,18 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of(
+        configuration.setAllowedOriginPatterns(List.of(
                 "http://localhost:3000",
                 "http://127.0.0.1:3000",
                 "http://localhost:5173",
                 "http://127.0.0.1:5173",
                 "http://192.168.1.36:5173",
 
-                // ✅ ADD THIS (VERY IMPORTANT)
                 "https://vel-frontend.vercel.app",
-                "https://vel-frontend-gssdqdhkl-npullugam-archs-projects.vercel.app/",
-                "https://vel-frontend-git-master-npullugam-archs-projects.vercel.app/"
+                "https://*.vercel.app",
 
+                "https://veltrixis.co",
+                "https://www.veltrixis.co"
         ));
 
         configuration.setAllowedMethods(List.of(
@@ -38,6 +38,7 @@ public class CorsConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 }
