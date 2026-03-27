@@ -2,7 +2,6 @@ package com.veltrixix.veltrixix_backend.dto.registration;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public class RegistrationRequest {
 
@@ -23,6 +22,8 @@ public class RegistrationRequest {
     private String yearOfStudy;
     private String city;
     private String interestMessage;
+    private String transactionId;
+    private String utrId;
 
     @NotBlank(message = "Registration type is required")
     private String registrationType;
@@ -112,6 +113,22 @@ public class RegistrationRequest {
 
     public void setInterestMessage(String interestMessage) {
         this.interestMessage = interestMessage;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getUtrId() {
+        return utrId;
+    }
+
+    public void setUtrId(String utrId) {
+        this.utrId = utrId;
     }
 
     public String getRegistrationType() {

@@ -67,6 +67,8 @@ public class RegistrationServiceImpl implements RegistrationService {
         registration.setYearOfStudy(request.getYearOfStudy());
         registration.setCity(request.getCity());
         registration.setInterestMessage(request.getInterestMessage());
+        registration.setTransactionId(request.getTransactionId());
+        registration.setUtrId(request.getUtrId());
         registration.setRegistrationType(registrationType);
         registration.setReferenceId(ReferenceIdGenerator.generate("VEL"));
         registration.setPaymentStatus(PaymentStatus.PENDING);

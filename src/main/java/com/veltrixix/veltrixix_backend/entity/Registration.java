@@ -43,6 +43,12 @@ public class Registration extends BaseEntity {
     @Column(name = "interest_message", columnDefinition = "TEXT")
     private String interestMessage;
 
+    @Column(name = "transaction_id", length = 120)
+    private String transactionId;
+
+    @Column(name = "utr_id", length = 120)
+    private String utrId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "registration_type", nullable = false, length = 30)
     private RegistrationType registrationType;
@@ -155,6 +161,22 @@ public class Registration extends BaseEntity {
 
     public void setInterestMessage(String interestMessage) {
         this.interestMessage = interestMessage;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getUtrId() {
+        return utrId;
+    }
+
+    public void setUtrId(String utrId) {
+        this.utrId = utrId;
     }
 
     public RegistrationType getRegistrationType() {

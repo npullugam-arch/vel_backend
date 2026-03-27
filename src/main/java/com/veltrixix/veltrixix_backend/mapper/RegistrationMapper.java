@@ -25,6 +25,8 @@ public final class RegistrationMapper {
         response.setYearOfStudy(registration.getYearOfStudy());
         response.setCity(registration.getCity());
         response.setInterestMessage(registration.getInterestMessage());
+        response.setTransactionId(registration.getTransactionId());
+        response.setUtrId(registration.getUtrId());
         response.setRegistrationType(registration.getRegistrationType() != null ? registration.getRegistrationType().name() : null);
         response.setReferenceId(registration.getReferenceId());
         response.setPaymentStatus(registration.getPaymentStatus() != null ? registration.getPaymentStatus().name() : null);

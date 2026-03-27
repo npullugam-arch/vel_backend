@@ -15,6 +15,8 @@ public class RegistrationResponse {
     private String yearOfStudy;
     private String city;
     private String interestMessage;
+    private String transactionId;
+    private String utrId;
     private String registrationType;
     private String referenceId;
     private String paymentStatus;
@@ -114,6 +116,22 @@ public class RegistrationResponse {
 
     public void setInterestMessage(String interestMessage) {
         this.interestMessage = interestMessage;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getUtrId() {
+        return utrId;
+    }
+
+    public void setUtrId(String utrId) {
+        this.utrId = utrId;
     }
 
     public String getRegistrationType() {
