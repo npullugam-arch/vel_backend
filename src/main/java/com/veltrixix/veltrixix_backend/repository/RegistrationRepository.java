@@ -19,7 +19,14 @@ public interface RegistrationRepository extends JpaRepository<Registration, Long
 
     long countByPaymentStatus(PaymentStatus paymentStatus);
 
+    boolean existsByInternshipId(Long internshipId);
+
     boolean existsByEventId(Long eventId);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Registration r where r.internship.id = :internshipId")
+    void deleteRegistrationsByInternshipId(@Param("internshipId") Long internshipId);
 
     @Modifying
     @Transactional

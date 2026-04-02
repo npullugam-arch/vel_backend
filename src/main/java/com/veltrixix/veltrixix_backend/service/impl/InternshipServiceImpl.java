@@ -10,8 +10,12 @@ import com.veltrixix.veltrixix_backend.exception.BadRequestException;
 import com.veltrixix.veltrixix_backend.exception.ResourceNotFoundException;
 import com.veltrixix.veltrixix_backend.mapper.InternshipMapper;
 import com.veltrixix.veltrixix_backend.repository.InternshipRepository;
+import com.veltrixix.veltrixix_backend.repository.PaymentDetailRepository;
+import com.veltrixix.veltrixix_backend.repository.RegistrationRepository;
 import com.veltrixix.veltrixix_backend.service.InternshipService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,9 +23,17 @@ import java.util.List;
 public class InternshipServiceImpl implements InternshipService {
 
     private final InternshipRepository internshipRepository;
+    private final PaymentDetailRepository paymentDetailRepository;
+    private final RegistrationRepository registrationRepository;
 
-    public InternshipServiceImpl(InternshipRepository internshipRepository) {
+    public InternshipServiceImpl(
+            InternshipRepository internshipRepository,
+            PaymentDetailRepository paymentDetailRepository,
+            RegistrationRepository registrationRepository
+    ) {
         this.internshipRepository = internshipRepository;
+        this.paymentDetailRepository = paymentDetailRepository;
+        this.registrationRepository = registrationRepository;
     }
 
     @Override
@@ -74,10 +86,27 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @Transactional
     public void deleteInternship(Long id) {
         Internship internship = internshipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Internship not found"));
-        internshipRepository.delete(internship);
+
+        try {
+            if (paymentDetailRepository.existsByRegistrationInternshipId(id)) {
+                paymentDetailRepository.deleteByRegistrationInternshipId(id);
+            }
+
+            if (registrationRepository.existsByInternshipId(id)) {
+                registrationRepository.deleteRegistrationsByInternshipId(id);
+            }
+
+            internshipRepository.delete(internship);
+            internshipRepository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new BadRequestException(
+                    "Unable to delete this internship because it is linked to other records."
+            );
+        }
     }
 
     private void mapRequestToEntity(InternshipRequest request, Internship internship) {

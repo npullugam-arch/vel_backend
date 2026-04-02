@@ -15,7 +15,13 @@ import java.util.Optional;
 public interface PaymentDetailRepository extends JpaRepository<PaymentDetail, Long> {
     Optional<PaymentDetail> findByRegistration(Registration registration);
     List<PaymentDetail> findByVerificationStatus(VerificationStatus verificationStatus);
+    boolean existsByRegistrationInternshipId(Long internshipId);
     boolean existsByRegistrationEventId(Long eventId);
+
+    @Modifying
+    @Transactional
+    @Query("delete from PaymentDetail p where p.registration.internship.id = :internshipId")
+    void deleteByRegistrationInternshipId(@Param("internshipId") Long internshipId);
 
     @Modifying
     @Transactional
