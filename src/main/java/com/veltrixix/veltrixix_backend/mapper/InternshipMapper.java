@@ -19,6 +19,8 @@ public final class InternshipMapper {
         response.setDomain(internship.getDomain());
         response.setMentorName(internship.getMentorName());
         response.setDescription(internship.getDescription());
+        response.setAboutText(internship.getAboutText());
+        response.setScheduleText(internship.getScheduleText());
         response.setDuration(internship.getDuration());
         response.setMode(internship.getMode() != null ? internship.getMode().toString() : null);
         response.setFee(internship.getFee());

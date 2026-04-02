@@ -11,6 +11,8 @@ public class InternshipResponse {
     private String domain;
     private String mentorName;
     private String description;
+    private String aboutText;
+    private String scheduleText;
     private String duration;
     private String mode;
     private BigDecimal fee;
@@ -63,6 +65,22 @@ public class InternshipResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAboutText() {
+        return aboutText;
+    }
+
+    public void setAboutText(String aboutText) {
+        this.aboutText = aboutText;
+    }
+
+    public String getScheduleText() {
+        return scheduleText;
+    }
+
+    public void setScheduleText(String scheduleText) {
+        this.scheduleText = scheduleText;
     }
 
     public String getDuration() {

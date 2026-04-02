@@ -85,6 +85,8 @@ public class InternshipServiceImpl implements InternshipService {
         internship.setDomain(request.getDomain());
         internship.setMentorName(request.getMentorName());
         internship.setDescription(request.getDescription());
+        internship.setAboutText(request.getAboutText());
+        internship.setScheduleText(request.getScheduleText());
         internship.setDuration(request.getDuration());
         internship.setMode(parseModeType(request.getMode()));
         internship.setFee(request.getFee());

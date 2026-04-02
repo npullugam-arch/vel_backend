@@ -27,6 +27,12 @@ public class Internship extends BaseEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "about_text", columnDefinition = "TEXT")
+    private String aboutText;
+
+    @Column(name = "schedule_text", columnDefinition = "TEXT")
+    private String scheduleText;
+
     @Column(name = "duration", length = 50)
     private String duration;
 
@@ -90,6 +96,22 @@ public class Internship extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAboutText() {
+        return aboutText;
+    }
+
+    public void setAboutText(String aboutText) {
+        this.aboutText = aboutText;
+    }
+
+    public String getScheduleText() {
+        return scheduleText;
+    }
+
+    public void setScheduleText(String scheduleText) {
+        this.scheduleText = scheduleText;
     }
 
     public String getDuration() {
