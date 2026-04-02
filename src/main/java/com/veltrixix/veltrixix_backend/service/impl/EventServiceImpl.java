@@ -10,6 +10,7 @@ import com.veltrixix.veltrixix_backend.exception.BadRequestException;
 import com.veltrixix.veltrixix_backend.exception.ResourceNotFoundException;
 import com.veltrixix.veltrixix_backend.mapper.EventMapper;
 import com.veltrixix.veltrixix_backend.repository.EventRepository;
+import com.veltrixix.veltrixix_backend.repository.RegistrationRepository;
 import com.veltrixix.veltrixix_backend.service.EventService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,14 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
+    private final RegistrationRepository registrationRepository;
 
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(
+            EventRepository eventRepository,
+            RegistrationRepository registrationRepository
+    ) {
         this.eventRepository = eventRepository;
+        this.registrationRepository = registrationRepository;
     }
 
     @Override
@@ -91,8 +97,15 @@ public class EventServiceImpl implements EventService {
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
 
         try {
+            // Step 1: delete child records (registrations)
+            if (registrationRepository.existsByEventId(id)) {
+                registrationRepository.deleteRegistrationsByEventId(id);
+            }
+
+            // Step 2: delete event
             eventRepository.delete(event);
             eventRepository.flush();
+
         } catch (DataIntegrityViolationException ex) {
             throw new BadRequestException(
                     "Unable to delete this event because it is linked to other records."
