@@ -11,7 +11,9 @@ import com.veltrixix.veltrixix_backend.exception.ResourceNotFoundException;
 import com.veltrixix.veltrixix_backend.mapper.EventMapper;
 import com.veltrixix.veltrixix_backend.repository.EventRepository;
 import com.veltrixix.veltrixix_backend.service.EventService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -83,10 +85,19 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void deleteEvent(Long id) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
-        eventRepository.delete(event);
+
+        try {
+            eventRepository.delete(event);
+            eventRepository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new BadRequestException(
+                    "Unable to delete this event because it is linked to other records."
+            );
+        }
     }
 
     private void mapRequestToEntity(EventRequest request, Event event) {
